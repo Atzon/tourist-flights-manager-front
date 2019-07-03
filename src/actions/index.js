@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const SET_FLIGHT = 'SET_FLIGHT';
 export const UPDATE_FLIGHT_LIST = 'UPDATE_FLIGHT_LIST';
 export const FETCH_FLIGHTS = 'FETCH_FLIGHTS';
@@ -15,86 +17,55 @@ export const ADD_TOURIST = 'ADD_TOURIST';
 export const DELETE_FLIGHT_FROM_TOURIST = 'DELETE_FLIGHT_FROM_TOURIST';
 
 
-
+const URL = 'http://localhost:8080'
 
 export function fetchTourists(){
-    const data = [
-            {
-                key: 1,
-                name: 'John',
-                surname: 'Brown',
-                gender: 'M',
-                country: 'USA',
-                notes: ' ',
-                birthdate: '01-01-1987',
-                flights: [
-                    {
-                        key: 1,
-                        departureDatetime: "24-06-2019 13:00",
-                        arrivalDatetime: "24-06-2019 15:30",
-                        numberOfSeats:  200,
-                        price: 100.00
-                    },
-                    {
-                        key: 2,
-                        departureDatetime: "29-06-2019 09:00",
-                        arrivalDatetime: "29-06-2019 11:30",
-                        numberOfSeats:  150,
-                        price: 90.00
-                    }]
-            },
-            {
-                key: 2,
-                name: 'Thomas',
-                surname: 'Brown',
-                gender: 'M',
-                country: 'UK',
-                notes: '',
-                birthdate: '01-01-1989',
-                flights: [
-                    {
-                        key: 3,
-                        departureDatetime: "21-06-2019 08:00",
-                        arrivalDatetime: "21-06-2019 11:30",
-                        numberOfSeats: 2,
-                        price: 1000.00
-                    },
-                    {
-                        key: 4,
-                        departureDatetime: "23-06-2019 18:00",
-                        arrivalDatetime: "23-06-2019 23:00",
-                        numberOfSeats:  1,
-                        price: 9000.00
-                    }]
-            },
-        ];
+    const request = axios.get(`${URL}/tourists`);
 
-        return{
-            type: FETCH_TOURISTS,
-            payload: data
-        }
+    return(dispatch) => {
+            request.then(({data}) =>{
+                dispatch({type: FETCH_TOURISTS, payload: data});
+            });
+    };
+
 }
 
 export function addTourist(tourist){
     tourist.flights = []
-    return{
-        type: ADD_TOURIST,
-        payload: tourist
-    }
+
+    const request = axios.post(`${URL}/tourists`, {tourist});
+
+    return(dispatch) => {
+        request.then(({data}) =>{
+             dispatch({type: ADD_TOURIST, payload: tourist});
+     });
+        };
+
+
 }
 
 export function deleteTourist(tourist){
-    return{
-        type: DELETE_TOURIST,
-        payload: tourist
-    }
+
+    const request = axios.delete(`${URL}/tourists/${tourist.key}`);
+
+    return(dispatch) => {
+        request.then(({data}) =>{
+             dispatch({type: DELETE_TOURIST, payload: tourist});
+     });
+        };
 }
 
 export function updateTouristsList(tourist){
-    return{
-        type: UPDATE_TOURISTS_LIST,
-        payload: tourist
-    }
+
+    const request = axios.put(`${URL}/tourists/${tourist.key}`, {tourist});
+
+    return(dispatch) => {
+        request.then(({data}) =>{
+             dispatch({type: UPDATE_TOURISTS_LIST, payload: tourist});
+     });
+        };
+
+
 }
 
 export function deleteFlightFromCurrentTourist(tourist, flight){
@@ -119,120 +90,54 @@ export function setCurrentTourist(tourist){
 }
 
 
+
+
 export function fetchFlights(){
-    const data =
-    [                       {
-                                  key: 1,
-                                  departureDatetime: "24-06-2019 13:00",
-                                  arrivalDatetime: "24-06-2019 15:30",
-                                  numberOfSeats:  200,
-                                  price: 100.00,
-                                  tourists: [
-                                  {
-                                                  key: 1,
-                                                  name: 'John',
-                                                  surname: 'Brown',
-                                                  gender: 'M',
-                                                  country: 'USA',
-                                                  notes: ' ',
-                                                  birthdate: '01-01-1987',
-                                  }
-                                  ]
-                              },
-                              {
-                                  key: 2,
-                                  departureDatetime: "29-06-2019 09:00",
-                                  arrivalDatetime: "29-06-2019 11:30",
-                                  numberOfSeats:  150,
-                                  price: 90.00,
-                                   tourists: [
-                                                                    {
-                                                                                    key: 1,
-                                                                                    name: 'John',
-                                                                                    surname: 'Brown',
-                                                                                    gender: 'M',
-                                                                                    country: 'USA',
-                                                                                    notes: ' ',
-                                                                                    birthdate: '01-01-1987',
-                                                                    }
-                                                                    ]
-                              },
 
-                         {
-                             key: 3,
-                             departureDatetime: "21-06-2019 08:00",
-                             arrivalDatetime: "21-06-2019 11:30",
-                             numberOfSeats: 2,
-                             price: 1000.00,
-                             tourists: [
-                             {
-                             key: 2,
-                                             name: 'Thomas',
-                                             surname: 'Brown',
-                                             gender: 'M',
-                                             country: 'UK',
-                                             notes: '',
-                                             birthdate: '01-01-1989',
-                             },
-                             ]
-                         },
-                         {
-                             key: 4,
-                             departureDatetime: "23-06-2019 18:00",
-                             arrivalDatetime: "23-06-2019 23:00",
-                             numberOfSeats:  1,
-                             price: 9000.00,
-                             tourists: [
-                                                          {
-                                                          key: 2,
-                                                                          name: 'Thomas',
-                                                                          surname: 'Brown',
-                                                                          gender: 'M',
-                                                                          country: 'UK',
-                                                                          notes: '',
-                                                                          birthdate: '01-01-1989',
-                                                          }
-                                                          ]
-                         },
-                         {
-                             key: 5,
-                             departureDatetime: "15-06-2019 08:00",
-                             arrivalDatetime: "15-06-2019 12:00",
-                             numberOfSeats:  5,
-                             price: 2000.00,
-                             tourists: []
-                         }]
+    const request = axios.get(`${URL}/flights`);
 
+    return(dispatch) => {
+            request.then(({data}) =>{
+                dispatch({type: FETCH_FLIGHTS, payload: data});
+            });
+    };
 
-
-        return{
-            type: FETCH_FLIGHTS,
-            payload: data
-        }
 }
 
 
 export function addFlight(flight){
     flight.tourists = []
-    console.log(flight);
-    return{
-        type: ADD_FLIGHT,
-        payload: flight
-    }
+
+    const request = axios.post(`${URL}/flights`, {flight});
+
+    return(dispatch) => {
+                request.then(({data}) =>{
+                     dispatch({type: ADD_FLIGHT, payload: flight});
+             });
+            };
 }
 
 export function deleteFlight(flight){
-    return{
-        type: DELETE_FLIGHT,
-        payload: flight
-    }
+
+    const request = axios.delete(`${URL}/flights/${flight.key}`);
+
+    return(dispatch) => {
+        request.then(({data}) =>{
+             dispatch({type: DELETE_FLIGHT, payload: flight});
+     });
+        };
+
 }
 
 export function updateFlightsList(flight){
-    return{
-        type: UPDATE_FLIGHT_LIST,
-        payload: flight
-    }
+
+    const request = axios.put(`${URL}/flights/${flight.key}`, {flight});
+
+    return(dispatch) => {
+        request.then(({data}) =>{
+             dispatch({type: UPDATE_FLIGHT_LIST, payload: flight});
+     });
+        };
 }
 
 export function deleteTouristFromCurrentFlight(flight, tourist){

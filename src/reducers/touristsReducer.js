@@ -3,6 +3,7 @@ import {FETCH_TOURISTS, DELETE_TOURIST, ADD_TOURIST, UPDATE_TOURISTS_LIST, DELET
 export default function(state = null, action){
     switch(action.type){
         case FETCH_TOURISTS:
+            console.log(action.payload);
             state = action.payload;
             return state;
         case DELETE_TOURIST:

@@ -3,6 +3,7 @@ import touristsReducer from './touristsReducer';
 import flightsReducer from './flightsReducer';
 import currentTourist from './currentTouristReducer';
 import currentFlight from './currentFlightReducer';
+
 import { reducer as formReducer } from 'redux-form';
 
 const rootReducer = combineReducers({

@@ -1,4 +1,4 @@
-import {FETCH_FLIGHTS, UPDATE_FLIGHT_LIST, DELETE_FLIGHT, ADD_FLIGHT} from "../actions";
+import {FETCH_FLIGHTS, UPDATE_FLIGHT_LIST, DELETE_FLIGHT, ADD_FLIGHT, UPDATE_TOURISTS_LIST} from "../actions";
 
 export default function(state = [], action){
     switch(action.type){
