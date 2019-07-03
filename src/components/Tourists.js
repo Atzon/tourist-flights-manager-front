@@ -16,7 +16,7 @@ class Tourists extends Component {
 
         this.state = {
             visible: false,
-            selectedFlightId: null,
+            selectedTouristId: null,
         };
 
         this.handleSelectNewFlight = this.handleSelectNewFlight.bind(this);
@@ -44,7 +44,7 @@ class Tourists extends Component {
 
     handleSelectNewFlight(value){
         console.log(`selected ${value}`);
-        this.setState({selectedFlightId: value});
+        this.setState({selectedTouristId: value});
     }
 
     showModal = () => {
@@ -73,7 +73,7 @@ class Tourists extends Component {
         );
     }
     addNewFlightToTourist(){
-        this.props.addFlightToCurrentTourist(this.props.flights.find(flight => flight.key === this.state.selectedFlightId));
+        this.props.addFlightToCurrentTourist(this.props.flights.find(flight => flight.key === this.state.selectedTouristId));
     }
 
     render(){

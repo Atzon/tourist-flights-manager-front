@@ -1,4 +1,4 @@
-import {FETCH_FLIGHTS, UPDATE_FLIGHT_LIST, DELETE_FLIGHT} from "../actions";
+import {FETCH_FLIGHTS, UPDATE_FLIGHT_LIST, DELETE_FLIGHT, ADD_FLIGHT} from "../actions";
 
 export default function(state = [], action){
     switch(action.type){
@@ -7,6 +7,8 @@ export default function(state = [], action){
             return state;
         case DELETE_FLIGHT:
             return state.filter(flight => flight.key !== action.payload.key);
+        case ADD_FLIGHT:
+            return [action.payload, ...state];
         case UPDATE_FLIGHT_LIST:
             return state.map(flight => {
                 if (flight.key === action.payload.key) {

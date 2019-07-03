@@ -16,11 +16,11 @@ class Flights extends Component {
 
         this.state = {
             visible: false,
-            selectedFlightId: null,
+            selectedTouristId: null,
         };
 
-        this.handleSelectNewFlight = this.handleSelectNewFlight.bind(this);
-        this.addNewFlightToTourist = this.addNewFlightToTourist.bind(this);
+        this.handleSelectNewTourist = this.handleSelectNewTourist.bind(this);
+        this.addNewTouristToFlight = this.addNewTouristToFlight.bind(this);
 
     }
 
@@ -38,13 +38,12 @@ class Flights extends Component {
         this.props.deleteFlight(flight);
     }
 
-    handleDeleteFlightFromTourist(flight){
-        this.props.deleteFlightFromCurrentTourist(this.props.currentTourist, flight);
+    handleDeleteTouristFromFlight(tourist){
+        this.props.deleteTouristFromCurrentFlight(this.props.currentFlight, tourist);
     }
 
-    handleSelectNewFlight(value){
-        console.log(`selected ${value}`);
-        this.setState({selectedFlightId: value});
+    handleSelectNewTourist(value){
+        this.setState({selectedTouristId: value});
     }
 
     showModal = () => {
@@ -57,7 +56,7 @@ class Flights extends Component {
         this.setState({
             visible: false,
         });
-        this.props.updateTouristsList(this.props.currentTourist);
+        this.props.updateFlightsList(this.props.currentFlight);
     };
 
     handleCancel = e => {
@@ -66,14 +65,13 @@ class Flights extends Component {
         });
     };
 
-    renderFlightsOptions(){
-        console.log(this.props.flights);
-        return this.props.flights.map(flight =>
-            <Select.Option value={flight.key}>Departure {flight.departureDatetime} Arrival {flight.arrivalDatetime}</Select.Option>
+    renderTouristsOptions(){
+        return this.props.tourists.map(tourist =>
+            <Select.Option value={tourist.key}>{tourist.name} {tourist.surname}</Select.Option>
         );
     }
-    addNewFlightToTourist(){
-        this.props.addFlightToCurrentTourist(this.props.flights.find(flight => flight.key === this.state.selectedFlightId));
+    addNewTouristToFlight(){
+        this.props.addTouristToCurrentFlight(this.props.tourists.find(tourist => tourist.key === this.state.selectedTouristId));
     }
 
     render(){
@@ -102,25 +100,23 @@ class Flights extends Component {
                 >
                     <Table columns={this.touristsColumns} dataSource={currentFlight.tourists} />
 
-                    {/*<p>Avalible flights</p>*/}
-                    {/*<Select style={{ width: 400 }} onChange={this.handleSelectNewFlight}>*/}
-                        {/*{this.renderFlightsOptions()}*/}
-                    {/*</Select>*/}
-                    {/*<Button onClick={this.addNewFlightToTourist}>Add new flight</Button>*/}
+                    <p>Add tourist</p>
+                    <Select style={{ width: 400 }} onChange={this.handleSelectNewTourist}>
+                        {this.renderTouristsOptions()}
+                    </Select>
+                    <Button onClick={this.addNewTouristToFlight}>Add new tourist</Button>
                 </Modal>
 
-                {/*<form onSubmit={handleSubmit(this.props.addTourist)}>*/}
-                    {/*<div style={{display: "flex", flexFlow: "row wrap", alignItems: "center"}}>*/}
-                        {/*<Field name="name" type="text" component={renderField} label="Name"/>*/}
-                        {/*<Field name="surname" type="text" component={renderField} label="Surname"/>*/}
-                        {/*<Field name="gender" type="text" component={renderField} label="Gender" />*/}
-                        {/*<Field name="country" type="text" component={renderField} label="Country" />*/}
-                        {/*<Field name="notes" type="text" component={renderField} label="Notes"/>*/}
-                        {/*<Field name="birthdate" type="text" component={renderField} label="Birthday"/>*/}
-                    {/*</div>*/}
-                    {/*<Button type='primary' htmlType='submit' style={{marginTop: "20px"}}>Add tourist</Button>*/}
+                <form onSubmit={handleSubmit(this.props.addFlight)}>
+                    <div style={{display: "flex", flexFlow: "row wrap", alignItems: "center"}}>
+                        <Field name="departureDatetime" type="text" component={renderField} label="Departure"/>
+                        <Field name="arrivalDatetime" type="text" component={renderField} label="Arrival"/>
+                        <Field name="numberOfSeats" type="text" component={renderField} label="Seats" />
+                        <Field name="price" type="text" component={renderField} label="Price" />
+                    </div>
+                    <Button type='primary' htmlType='submit' style={{marginTop: "20px"}}>Add flight</Button>
 
-                {/*</form>*/}
+                </form>
             </div>
         );
     }
@@ -141,9 +137,7 @@ class Flights extends Component {
             key: 'actions',
             render: (text, record) => (
                 <span>
-                    <Button onClick={() => this.handleEditFlights(record)}>Edit flights</Button>
-                    <Divider type="vertical" />
-                    <Button onClick={() => this.handleDeleteFlight(record)}>Delete tourist</Button>
+                    <Button onClick={() => this.handleDeleteTouristFromFlight(record)}>Delete tourist</Button>
                 </span>
             ),
         },

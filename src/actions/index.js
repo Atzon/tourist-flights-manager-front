@@ -119,7 +119,6 @@ export function setCurrentTourist(tourist){
 }
 
 
-
 export function fetchFlights(){
     const data =
     [                       {
@@ -127,14 +126,36 @@ export function fetchFlights(){
                                   departureDatetime: "24-06-2019 13:00",
                                   arrivalDatetime: "24-06-2019 15:30",
                                   numberOfSeats:  200,
-                                  price: 100.00
+                                  price: 100.00,
+                                  tourists: [
+                                  {
+                                                  key: 1,
+                                                  name: 'John',
+                                                  surname: 'Brown',
+                                                  gender: 'M',
+                                                  country: 'USA',
+                                                  notes: ' ',
+                                                  birthdate: '01-01-1987',
+                                  }
+                                  ]
                               },
                               {
                                   key: 2,
                                   departureDatetime: "29-06-2019 09:00",
                                   arrivalDatetime: "29-06-2019 11:30",
                                   numberOfSeats:  150,
-                                  price: 90.00
+                                  price: 90.00,
+                                   tourists: [
+                                                                    {
+                                                                                    key: 1,
+                                                                                    name: 'John',
+                                                                                    surname: 'Brown',
+                                                                                    gender: 'M',
+                                                                                    country: 'USA',
+                                                                                    notes: ' ',
+                                                                                    birthdate: '01-01-1987',
+                                                                    }
+                                                                    ]
                               },
 
                          {
@@ -142,21 +163,44 @@ export function fetchFlights(){
                              departureDatetime: "21-06-2019 08:00",
                              arrivalDatetime: "21-06-2019 11:30",
                              numberOfSeats: 2,
-                             price: 1000.00
+                             price: 1000.00,
+                             tourists: [
+                             {
+                             key: 2,
+                                             name: 'Thomas',
+                                             surname: 'Brown',
+                                             gender: 'M',
+                                             country: 'UK',
+                                             notes: '',
+                                             birthdate: '01-01-1989',
+                             },
+                             ]
                          },
                          {
                              key: 4,
                              departureDatetime: "23-06-2019 18:00",
                              arrivalDatetime: "23-06-2019 23:00",
                              numberOfSeats:  1,
-                             price: 9000.00
+                             price: 9000.00,
+                             tourists: [
+                                                          {
+                                                          key: 2,
+                                                                          name: 'Thomas',
+                                                                          surname: 'Brown',
+                                                                          gender: 'M',
+                                                                          country: 'UK',
+                                                                          notes: '',
+                                                                          birthdate: '01-01-1989',
+                                                          }
+                                                          ]
                          },
                          {
                              key: 5,
                              departureDatetime: "15-06-2019 08:00",
                              arrivalDatetime: "15-06-2019 12:00",
                              numberOfSeats:  5,
-                             price: 2000.00
+                             price: 2000.00,
+                             tourists: []
                          }]
 
 
@@ -169,6 +213,8 @@ export function fetchFlights(){
 
 
 export function addFlight(flight){
+    flight.tourists = []
+    console.log(flight);
     return{
         type: ADD_FLIGHT,
         payload: flight
